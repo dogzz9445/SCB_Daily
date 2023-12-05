@@ -96,3 +96,4 @@ Nuget.config*
 # SCB License Package #
 # =================== #
 /Assets/SCB_License/
+/Assets/SCB_Secret/
