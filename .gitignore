@@ -97,3 +97,8 @@ Nuget.config*
 # =================== #
 /Assets/SCB_License/
 /Assets/SCB_Secret/
+
+# =================== #
+# vscode              #
+# =================== #
+.vscode/
