@@ -91,3 +91,8 @@ MSBuildForUnity.Common.props
 *.msb4u.sln.meta
 Dependencies*
 Nuget.config*
+
+# =================== #
+# SCB License Package #
+# =================== #
+/Assets/SCB_License/
