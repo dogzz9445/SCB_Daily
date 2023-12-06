@@ -691,6 +691,9 @@ MonoBehaviour:
   IsRotation: 0
   RotationSpeed: 0.2
   IsWireFrame: 0
+  selectionDegree: 0
+  angle360: 0
+  selectedCard: 0
 --- !u!1 &2033380001
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,7 +55,8 @@ namespace SCB.CardSwipes
                 transform.localEulerAngles = new Vector3(0, 0, transform.localEulerAngles.z + RotationSpeed);
             }
             selectionDegree = 360f / Cards.Count;
-            angle360 = transform.localEulerAngles.z < 0 ? transform.localEulerAngles.z + 360 : transform.localEulerAngles.z;
+            float ang = -transform.localEulerAngles.z;
+            angle360 = ang < 0 ? ang + 360 : ang;
             selectedCard = (int)(angle360 / selectionDegree);
 
             for (int i = 0; i < Cards.Count; i++)
