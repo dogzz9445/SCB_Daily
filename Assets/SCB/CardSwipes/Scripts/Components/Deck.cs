@@ -11,16 +11,11 @@ using DG.Tweening;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
 #endif
 
 namespace SCB.CardSwipes
 {
     public class Deck : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
-    #if UNITY_EDITOR
-    , IPreprocessBuildWithReport
-    #endif
     {
         [Header("Required Initial Settings")]
         public GameObject CardPrefab;
@@ -119,8 +114,6 @@ namespace SCB.CardSwipes
 
         private bool isSelecting;
 
-        public int callbackOrder => 1;
-
         void Update()
         {
             // Refresh Debugging Settings
@@ -150,16 +143,19 @@ namespace SCB.CardSwipes
 
             for (int i = 0; i < Cards.Count; i++)
             {
-                // Selected Card 선정
-                if (i == topCardIndex)
+                // Card들의 보이는 순서 조정
+                if (!IsClickingOnCard)
                 {
-                    Cards[i].transform.SetAsLastSibling();
-                }
-                else
-                {
-                    if (bottomCardIndex == i)
+                    if (i == topCardIndex)
                     {
-                        Cards[i].transform.SetAsFirstSibling();
+                        Cards[i].transform.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        if (bottomCardIndex == i)
+                        {
+                            Cards[i].transform.SetAsFirstSibling();
+                        }
                     }
                 }
 
@@ -219,6 +215,17 @@ namespace SCB.CardSwipes
                 // .OnStart(() => _dragVelocity = 0);
         }
 
+        private bool IsClickingOnCard = false;
+        public void OnClickCard(PointerEventData eventData, int cardIndex)
+        {
+            IsClickingOnCard = true;
+            float degree = ((float)cardIndex / (float)Cards.Count) * 360;
+            ReorderCards(cardIndex);
+            transform
+                .DORotate(new Vector3(0, 0, (-degree) + 90), 1.0f)
+                .OnComplete(() => IsClickingOnCard = false);
+        }
+
         public void Select(int cardIndex)
         {
             if (cardIndex < 0 || cardIndex >= Cards.Count)
@@ -231,11 +238,6 @@ namespace SCB.CardSwipes
         }
 
 #if UNITY_EDITOR
-        public void OnPreprocessBuild(BuildReport report)
-        {
-            SetAllSectionsAverageImage();
-        }
-
         public void OnPlayModeChanged(PlayModeStateChange state)
         {
             if (state == PlayModeStateChange.EnteredPlayMode)
