@@ -34,7 +34,7 @@ Material:
     - _ColorMask: 15
     - _IsAlphaMasked: 1
     - _IsSpriteVisible: 1
-    - _Radius: 41
+    - _Radius: 30
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -42,5 +42,5 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _OverlayColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _OverlayColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_BuildTextureStacks: []
