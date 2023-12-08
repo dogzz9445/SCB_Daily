@@ -102,3 +102,8 @@ Nuget.config*
 # vscode              #
 # =================== #
 .vscode/
+
+# ============================= #
+# ThirdPatry DependenciesHunter #
+# ============================= #
+!DependenciesHunter.cs
