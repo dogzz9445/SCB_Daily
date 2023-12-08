@@ -37,6 +37,8 @@ namespace SCB.CardSwipes
 
         public bool IsWireFrame { get; internal set; }
 
+        public bool IsClicked { get; internal set; }
+
         #region Drag Handlers
         private void Start()
         {
@@ -66,9 +68,13 @@ namespace SCB.CardSwipes
             {
                 return;
             }
+            IsClicked = true;
             rect.DOSizeDelta(new Vector2(0, MaxHeight+50), 0.5f)
             .OnComplete(() => 
-            rect.DOSizeDelta(new Vector2(0, MaxHeight), 0.5f));
+            rect.DOSizeDelta(new Vector2(0, Height), 0.5f)
+            .OnComplete(() => IsClicked = false));
+
+            deck.OnClickCard(eventData, Index);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -88,6 +94,7 @@ namespace SCB.CardSwipes
 
         private void Update()
         {
+            // 카드 크기 조절
             if (IsSelected)
             {
                 Height = MaxHeight;
@@ -110,7 +117,14 @@ namespace SCB.CardSwipes
 
                 Height = MaxHeight * ratioX * ratioY;
             }
-            rect.sizeDelta = new Vector2(0, Height);
+            if (!IsClicked)
+            {
+                rect.sizeDelta = new Vector2(0, Height);
+            }
+            else
+            {
+                transform.SetAsLastSibling();
+            }
 
             if (section != null)
             {
