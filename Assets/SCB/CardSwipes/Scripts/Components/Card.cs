@@ -31,7 +31,8 @@ namespace SCB.CardSwipes
 
         private Deck deck;
 
-        private Image cardImage;
+        public Image cardImage;
+        public Image cardImageShadow;
 
         public Section section;
 
@@ -43,6 +44,7 @@ namespace SCB.CardSwipes
 
         public bool IsClicked { get; internal set; }
 
+        [HideInInspector]
         public bool isMovingToCenter = false;
 
         #region Drag Handlers
@@ -139,9 +141,9 @@ namespace SCB.CardSwipes
 
             if (section != null)
             {
-                var image = GetComponentInChildren<UnityEngine.UI.Image>();
-                image.sprite = section.Image;
-                image.color = Color.white;
+                GetComponent<AspectRatioFitter>().aspectRatio = section.Image.textureRect.width / section.Image.textureRect.height;
+                cardImage.sprite = section.Image;
+                cardImage.color = Color.white;
                 if (text != null)
                 {
                     text.text = section.Description;

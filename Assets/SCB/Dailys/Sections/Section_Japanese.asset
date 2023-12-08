@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec880875bf33db4fa84c1420323ebfc, type: 3}
+  m_Name: Section_Japanese
+  m_EditorClassIdentifier: 
+  Name: "\uC77C\uBCF8\uC5B4"
+  Description: "\uC6B0\uB9AC\uAC00 \uC37C\uB358 \uC77C\uBCF8\uC5B4"
+  Image: {fileID: 21300000, guid: 523933c4e89a99440b31b47dab73cf6c, type: 3}
+  Prefab: {fileID: 4642986579751729957, guid: 146ae2f77f69d4e47a652fbb7a3843b0, type: 3}
+  ImageColor: {r: 0, g: 0, b: 0, a: 0}

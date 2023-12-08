@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
+
 
 
 
@@ -17,6 +19,29 @@ using UnityEditor;
 
 namespace SCB.CardSwipes
 {
+
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(Deck))]
+    public class DeckGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+            GUILayout.Label("Only In Editor");
+
+            if (GUILayout.Button("Set All Sections Average Image"))
+            {
+                var deck = target as Deck;
+                deck.SetAllSectionsAverageImage();
+            }
+            GUILayout.EndVertical();
+        }
+    }
+    #endif
+
+
     public class Deck : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [Header("Required Initial Settings")]
@@ -64,24 +89,22 @@ namespace SCB.CardSwipes
                 GetCard(i).Item1.transform.SetAsFirstSibling();
             }
         }
-
+        public int DebugSelectedCardIndex = 0;
+        public int DebugSelectedSectionIndex = 0;
         public (Card, int) GetCard(int index)
         {
             if (Cards.Count == 0)
                 return default;
 
+            if (index < 0)
+            {
+                index += Cards.Count;
+            }
             if (index >= Cards.Count)
             {
                 index %= Cards.Count;
             }
-            if (index < 0)
-            {
-                index = Cards.Count + (index % Cards.Count);
-                if (index == Cards.Count)
-                {
-                    index = 0;
-                }
-            }
+            DebugSelectedCardIndex = index;
             return (Cards[index], index);
         }
 
@@ -89,21 +112,40 @@ namespace SCB.CardSwipes
         {
             if (Sections.Count == 0)
                 return default;
+            int count = countRotation;
 
+            if (index < 0)
+            {
+                int c = (int)Math.Ceiling(Math.Abs((float)index) / (float)Cards.Count);
+                index += Cards.Count * c;
+                count -= c;
+            }
+            if (index >= Cards.Count)
+            {
+                int c = (int)Math.Floor((float)index / (float)Cards.Count);
+                index %= Cards.Count;
+                count += c;
+            }
+            if (count < 0)
+            {
+                index += count * Cards.Count;
+            }
+            if (count > 0)
+            {
+                index -= count * Cards.Count;
+            }
+
+            if (index < 0)
+            {
+                index += Sections.Count * (int)Math.Ceiling(Math.Abs((float)index) / (float)Sections.Count);
+            }
             if (index >= Sections.Count)
             {
                 index %= Sections.Count;
             }
-            if (index < 0)
-            {
-                index = Sections.Count + (index % Sections.Count);
-                if (index == Sections.Count)
-                {
-                    index = 0;
-                }
-            }
+            DebugSelectedSectionIndex = index;
             return (Sections[index], index);
-        }
+        }   
 
         [Header("Debug Only")]
         public float degreeCard = 0;
@@ -116,6 +158,10 @@ namespace SCB.CardSwipes
 
         private bool isSelecting;
 
+        public int previousTopCardIndex = 0;
+        public int deltaTopCardIndex = 0;
+        public int countRotation = 0;
+
         void Update()
         {
             // Refresh Debugging Settings
@@ -124,7 +170,6 @@ namespace SCB.CardSwipes
             //     card.MaxWidth = CardWidth;
             //     card.IsWireFrame = IsWireFrame;
             // }
-
             degreeCard = 360f / Cards.Count;
             float degreeClockwise = -transform.localEulerAngles.z;
             degreeTop = degreeClockwise < 0 ? degreeClockwise + 360 : degreeClockwise;
@@ -133,6 +178,18 @@ namespace SCB.CardSwipes
             if (topCardIndex == Cards.Count)
             {
                 topCardIndex = 0;
+            }
+
+            deltaTopCardIndex = topCardIndex - previousTopCardIndex;
+            previousTopCardIndex = topCardIndex;
+
+            if (deltaTopCardIndex < -Cards.Count / 2)
+            {
+                countRotation += 1;
+            }
+            else if (deltaTopCardIndex > Cards.Count / 2)
+            {
+                countRotation -= 1;
             }
 
             degreeBottom = degreeClockwise < 0 ? degreeClockwise + 360 : degreeClockwise;
@@ -171,9 +228,6 @@ namespace SCB.CardSwipes
             }
 
             // Card에 Section 적용
-            if (Sections.Count > 7)
-            {
-            }
             for (int i = topCardIndex - 4; i <= topCardIndex + 4; i++)
             {
                 GetCard(i).Item1.section = GetSection(i).Item1;
@@ -269,16 +323,26 @@ namespace SCB.CardSwipes
                 if (section.Image == null)
                     continue;
                 var texture = section.Image.texture;
-                var colors = texture.GetPixels();
-                var averageColor = new Color();
-                foreach (var color in colors)
+ 
+                Color32[] texColors = texture.GetPixels32();
+        
+                int total = texColors.Length;
+        
+                float r = 0;
+                float g = 0;
+                float b = 0;
+        
+                for(int i = 0; i < total; i++)
                 {
-                    averageColor += color;
+                    r += texColors[i].r;
+                    g += texColors[i].g;
+                    b += texColors[i].b;
                 }
-                averageColor /= colors.Length;
-                section.ImageColor = averageColor;
+ 
+                section.ImageColor = new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , 0xff);
             }
             EditorUtility.SetDirty(this);
+            Debug.Log("Done.. Set All Sections Average Image");
         }
 #endif
     }
