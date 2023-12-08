@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System.Collections;
+
 
 
 
@@ -63,7 +65,7 @@ namespace SCB.CardSwipes
             }
         }
 
-        private (Card, int) GetCard(int index)
+        public (Card, int) GetCard(int index)
         {
             if (Cards.Count == 0)
                 return default;
@@ -83,7 +85,7 @@ namespace SCB.CardSwipes
             return (Cards[index], index);
         }
 
-        private (Section, int) GetSection(int index)
+        public (Section, int) GetSection(int index)
         {
             if (Sections.Count == 0)
                 return default;
@@ -224,6 +226,20 @@ namespace SCB.CardSwipes
             transform
                 .DORotate(new Vector3(0, 0, (-degree) + 90), 1.0f)
                 .OnComplete(() => IsClickingOnCard = false);
+
+            if (topCardIndex != cardIndex)
+                return;
+
+            CardSwipeManager.Instance.HideDeck();
+            CardSwipeManager.Instance.ShowCardDetail(cardIndex);
+            GetCard(cardIndex).Item1.gameObject.SetActive(false);
+            StartCoroutine(ResetActive(cardIndex));
+        }
+
+        private IEnumerator ResetActive(int cardIndex)
+        {
+            yield return new WaitForSeconds(1.0f);
+            GetCard(cardIndex).Item1.gameObject.SetActive(true);
         }
 
         public void Select(int cardIndex)

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+
 
 
 #if UNITY_EDITOR
@@ -29,6 +31,8 @@ namespace SCB.CardSwipes
 
         private Deck deck;
 
+        private Image cardImage;
+
         public Section section;
 
         public RectTransform rect;
@@ -38,6 +42,8 @@ namespace SCB.CardSwipes
         public bool IsWireFrame { get; internal set; }
 
         public bool IsClicked { get; internal set; }
+
+        public bool isMovingToCenter = false;
 
         #region Drag Handlers
         private void Start()
@@ -64,6 +70,9 @@ namespace SCB.CardSwipes
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (isMovingToCenter)
+                return;
+
             if (eventData.dragging)
             {
                 return;
@@ -87,13 +96,15 @@ namespace SCB.CardSwipes
 
         public void SetSection()
         {
-            var image = GetComponentInChildren<UnityEngine.UI.Image>();
-            image.sprite = section.Image;
-            image.color = Color.white;
+            cardImage.sprite = section.Image;
+            cardImage.color = Color.white;
         }
 
         private void Update()
         {
+            if (isMovingToCenter)
+                return;
+
             // 카드 크기 조절
             if (IsSelected)
             {

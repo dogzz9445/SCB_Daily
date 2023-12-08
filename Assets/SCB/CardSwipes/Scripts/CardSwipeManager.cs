@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,6 +65,33 @@ namespace SCB.CardSwipes
             deck.transform.DOLocalMoveY(DeckGlobalPositionY, 1.0f);
             hideShowButton.transform.DOLocalRotate(new Vector3(0, 0, 360), 0.2f);
             hideShowButtonShadow.transform.DOLocalRotate(new Vector3(0, 0, 360), 0.2f);
+        }
+
+        public void ShowCardDetail(int cardIndex)
+        {
+            GameObject originalCard = deck.GetComponent<Deck>().GetCard(cardIndex).Item1.gameObject;
+            var popupCard = Instantiate(originalCard);
+            popupCard.transform.position = originalCard.transform.position;
+            popupCard.transform.rotation = originalCard.transform.rotation;
+            popupCard.transform.SetParent(transform.parent);
+            popupCard.GetComponent<Card>().isMovingToCenter = true;
+
+            popupCard.transform
+                .DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), 1.0f)
+                .SetEase(Ease.OutCubic);
+            popupCard.transform
+                .DOMove(new Vector3(Screen.width / 2, Screen.height / 2, 0), 1.0f)
+                .SetEase(Ease.OutCubic);
+            popupCard.transform
+                .GetComponent<RectTransform>()
+                .DOSizeDelta(new Vector3(0, Screen.height * 0.640614f), 1.0f);
+            StartCoroutine(DestroyCard(popupCard, 2.0f));
+        }
+
+        public IEnumerator DestroyCard(GameObject card, float delay = 0.0f)
+        {
+            yield return new WaitForSeconds(delay);
+            Destroy(card);
         }
     }
 }

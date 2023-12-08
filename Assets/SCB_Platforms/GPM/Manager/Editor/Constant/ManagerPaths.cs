@@ -14,7 +14,7 @@ namespace Gpm.Manager.Constant
 
         public const string STORE_URI = "https://assetstore.unity.com/packages/tools/utilities/game-package-manager-147711";
 
-        public static readonly string GPM_ROOT = "GPM";
+        public static readonly string GPM_ROOT = "SCB_Platforms/GPM";
 
         public static readonly string LANGUAGE_FILE_PATH = string.Format("{0}/Manager/Data/strings.xml", GPM_ROOT);
 
