@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\uD06C\uB9AC\uC2A4\uB9C8\uC2A4"
   Description: "\uD06C\uB9AC\uC2A4\uB9C8\uC2A4\uAD6C\uB098"
-  Image: {fileID: 21300000, guid: 28903bc14f1c4ea4e8b12daf7a2d7cae, type: 3}
+  Image: {fileID: 21300000, guid: 6feefcfdb84627044bbfaf846a7e2332, type: 3}
   Prefab: {fileID: 4642986579751729957, guid: 00684d486cb233d4e8d5c148ae3d5b6f, type: 3}
   ImageColor: {r: 0, g: 0, b: 0, a: 0}

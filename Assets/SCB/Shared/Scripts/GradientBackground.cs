@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 namespace SCB.Shared.UI
@@ -48,7 +47,7 @@ namespace SCB.Shared.UI
             Left.GetComponent<UnityEngine.UI.Image>().color = LeftColor;
             Right.GetComponent<UnityEngine.UI.Image>().color = RightColor;
             Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color", LeftColor);
-            Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color1", RightColor);
+            Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color2", RightColor);
         }
 
         public void SetRight()
@@ -58,7 +57,27 @@ namespace SCB.Shared.UI
 
         public void SetLeft()
         {
-            transform.localPosition = new Vector3(ScreenHeight, 0, 0);
+            transform.localPosition = new Vector3(ScreenWidth, 0, 0);
+        }
+
+        public void SetAlpha0()
+        {
+            Left.GetComponent<UnityEngine.UI.Image>().color = new Color(LeftColor.r, LeftColor.g, LeftColor.b, 0.0f);
+            Right.GetComponent<UnityEngine.UI.Image>().color = new Color(RightColor.r, RightColor.g, RightColor.b, 0.0f);
+            Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color", new Color(LeftColor.r, LeftColor.g, LeftColor.b, 0.0f));
+            Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color2", new Color(RightColor.r, RightColor.g, RightColor.b, 0.0f));
+        }
+
+        public DG.Tweening.Core.TweenerCore<Color, Color, DG.Tweening.Plugins.Options.ColorOptions> FadeIn()
+        {
+            Left.GetComponent<UnityEngine.UI.Image>().DOFade(1.0f, 0.5f);
+            return Right.GetComponent<UnityEngine.UI.Image>().DOFade(1.0f, 0.5f);
+        }
+
+        public DG.Tweening.Core.TweenerCore<Color, Color, DG.Tweening.Plugins.Options.ColorOptions> FadeOut()
+        {
+            Left.GetComponent<UnityEngine.UI.Image>().DOFade(0.0f, 0.5f);
+            return Right.GetComponent<UnityEngine.UI.Image>().DOFade(0.0f, 0.5f);
         }
 
         public DG.Tweening.Core.TweenerCore<Vector3, Vector3, DG.Tweening.Plugins.Options.VectorOptions> MoveRight(float duration = 0.0f, float delay = 0.0f)

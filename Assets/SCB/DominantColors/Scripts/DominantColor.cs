@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using KMeans;
+using SCB.ColorSpaces;
+
 // https://github.com/indragiek/DominantColor?tab=readme-ov-file 를 참고함
 // CIE 색공간으로 변환하여 색을 비교함
 // https://en.wikipedia.org/wiki/CIE_1931_color_space
@@ -14,7 +17,7 @@ namespace SCB.DominantColors
 {
     public class DominantColor
     {
-        public static Color[] GetDominantColorS(Texture texture)
+        public static Color[] GetDominantColorS(Texture2D texture)
         {
             Color[] pixels = texture.GetPixels();
             List<DataVec> points = new List<DataVec>();
@@ -29,7 +32,7 @@ namespace SCB.DominantColors
             foreach (Cluster cluster in clusters)
             {
                 var rgb = ColorConversion.LabtoRGB(cluster.Centroid.Components[0], cluster.Centroid.Components[1], cluster.Centroid.Components[2]);
-                colors.Add(new Color(rgb.R / 255f, rgb.G / 255f, rgb.B / 255f));
+                colors.Add(new Color(rgb.Red / 255f, rgb.Green / 255f, rgb.Blue / 255f));
             }
             return colors.ToArray();
         }

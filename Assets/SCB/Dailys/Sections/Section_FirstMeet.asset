@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\uCC98\uC74C"
   Description: "\uC6B0\uB9AC \uCC98\uC74C \uB9CC\uB0AC\uC744 \uB54C"
-  Image: {fileID: 21300000, guid: 042cb4d7e694ab345ab7437f467ead07, type: 3}
+  Image: {fileID: 21300000, guid: 50eb747c0b6114a4cb48ea179a8a0ec0, type: 3}
   Prefab: {fileID: 4642986579751729957, guid: 59f74087441e3c941a14fc135468e184, type: 3}
-  ImageColor: {r: 0, g: 0, b: 0, a: 0}
+  ImageColor: {r: 0.57254905, g: 0.60784316, b: 0.5529412, a: 1}

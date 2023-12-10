@@ -7,10 +7,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
-
-
-
 
 
 #if UNITY_EDITOR
@@ -340,8 +336,8 @@ namespace SCB.CardSwipes
                 }
  
                 section.ImageColor = new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , 0xff);
+                Debug.Log($"Section {section.name} Average Color: {section.ImageColor}");
             }
-            EditorUtility.SetDirty(this);
             Debug.Log("Done.. Set All Sections Average Image");
         }
 #endif

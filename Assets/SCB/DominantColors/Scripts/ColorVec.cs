@@ -17,7 +17,7 @@ namespace SCB.DominantColors
             Components[2] = B;
         }
 
-        public override double Distance(DataVec other)
+        public override double GetDistance(DataVec other)
         {
             ColorVec otherColor = (ColorVec)other;
             return Mathf.Sqrt(Mathf.Pow((float)(Components[0] - otherColor.Components[0]), 2) + Mathf.Pow((float)(Components[1] - otherColor.Components[1]), 2) + Mathf.Pow((float)(Components[2] - otherColor.Components[2]), 2));

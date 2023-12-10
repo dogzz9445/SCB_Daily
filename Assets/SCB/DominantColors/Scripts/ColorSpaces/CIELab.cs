@@ -1,101 +1,105 @@
 
-namespace SCB.ColorSpaces;
+using System;
 
-/// <summary>
-/// Structure to define CIE L*a*b*.
-/// </summary>
-public struct CIELab
+namespace SCB.ColorSpaces
 {
-    /// <summary>
-    /// Gets an empty CIELab structure.
-    /// </summary>
-    public static readonly CIELab Empty = new CIELab();
-    
-    private double l;
-    private double a;
-    private double b;
-
-
-    public static bool operator ==(CIELab item1, CIELab item2)
-    {
-        return (
-            item1.L == item2.L
-            && item1.A == item2.A
-            && item1.B == item2.B
-            );
-    }
-    
-    public static bool operator !=(CIELab item1, CIELab item2)
-    {
-        return (
-            item1.L != item2.L
-            || item1.A != item2.A
-            || item1.B != item2.B
-            );
-    }
-
 
     /// <summary>
-    /// Gets or sets L component.
+    /// Structure to define CIE L*a*b*.
     /// </summary>
-    public double L
+    public struct CIELab
     {
-        get
+        /// <summary>
+        /// Gets an empty CIELab structure.
+        /// </summary>
+        public static readonly CIELab Empty = new CIELab();
+
+        private double l;
+        private double a;
+        private double b;
+
+
+        public static bool operator ==(CIELab item1, CIELab item2)
         {
-            return this.l;
+            return (
+                item1.L == item2.L
+                && item1.A == item2.A
+                && item1.B == item2.B
+                );
         }
-        set
+
+        public static bool operator !=(CIELab item1, CIELab item2)
         {
-            this.l = value;
+            return (
+                item1.L != item2.L
+                || item1.A != item2.A
+                || item1.B != item2.B
+                );
         }
-    }
-    
-    /// <summary>
-    /// Gets or sets a component.
-    /// </summary>
-    public double A
-    {
-        get
+
+
+        /// <summary>
+        /// Gets or sets L component.
+        /// </summary>
+        public double L
         {
-            return this.a;
+            get
+            {
+                return this.l;
+            }
+            set
+            {
+                this.l = value;
+            }
         }
-        set
+
+        /// <summary>
+        /// Gets or sets a component.
+        /// </summary>
+        public double A
         {
-            this.a = value;
+            get
+            {
+                return this.a;
+            }
+            set
+            {
+                this.a = value;
+            }
         }
-    }
-    
-    /// <summary>
-    /// Gets or sets a component.
-    /// </summary>
-    public double B
-    {
-        get
+
+        /// <summary>
+        /// Gets or sets a component.
+        /// </summary>
+        public double B
         {
-            return this.b;
+            get
+            {
+                return this.b;
+            }
+            set
+            {
+                this.b = value;
+            }
         }
-        set
+
+        public CIELab(double l, double a, double b)
         {
-            this.b = value;
+            this.l = l;
+            this.a = a;
+            this.b = b;
         }
-    }
-    
-    public CIELab(double l, double a, double b)
-    {
-        this.l = l;
-        this.a = a;
-        this.b = b;
-    }
-    
-    public override bool Equals(Object obj)
-    {
-        if(obj==null || GetType()!=obj.GetType()) return false;
-    
-        return (this == (CIELab)obj);
-    }
-    
-    public override int GetHashCode()
-    {
-        return L.GetHashCode() ^ a.GetHashCode() ^ b.GetHashCode();
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+
+            return (this == (CIELab)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return L.GetHashCode() ^ a.GetHashCode() ^ b.GetHashCode();
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace SCB.CardSwipes
         public GameObject hideShowButton;
         public GameObject hideShowButtonShadow;
 
+        public GameObject blurBackground;
+
         public GradientBackground gradientBackground;
         public GameObject Background;
 
@@ -58,6 +60,8 @@ namespace SCB.CardSwipes
                 return;
             isShowingDeck = false;
 
+            blurBackground.SetActive(false);
+
             deck.transform.DOLocalMoveY(-DeckRadius - MaxCardHeight, 1.0f);
             hideShowButton.transform.DOLocalRotate(new Vector3(0, 0, 180), 0.2f);
             hideShowButtonShadow.transform.DOLocalRotate(new Vector3(0, 0, 180), 0.2f);
@@ -68,6 +72,8 @@ namespace SCB.CardSwipes
             if (isShowingDeck)
                 return;
             isShowingDeck = true;
+            
+            blurBackground.SetActive(true);
 
             deck.transform.DOLocalMoveY(DeckGlobalPositionY, 1.0f);
             hideShowButton.transform.DOLocalRotate(new Vector3(0, 0, 360), 0.2f);
@@ -76,6 +82,12 @@ namespace SCB.CardSwipes
 
         public void ShowCardDetail(int cardIndex)
         {
+            Color rightColor = Color.white;
+            if (goSection)
+            {
+                rightColor = goSection.GetComponent<SectionRoot>().section.ImageColor;
+            }
+
             GameObject originalCard = deck.GetComponent<Deck>().GetCard(cardIndex).Item1.gameObject;
             var popupCard = Instantiate(originalCard);
             popupCard.transform.position = originalCard.transform.position;
@@ -113,27 +125,31 @@ namespace SCB.CardSwipes
                     .OnComplete(() =>
                     Destroy(popupCard));
 
-            gradientBackground.SetColor(selectedSection.ImageColor, Color.white);
-            gradientBackground.MoveLeft(1.0f, 0.1f).OnComplete(() =>
+            gradientBackground.SetColor(selectedSection.ImageColor, rightColor);
+            gradientBackground.SetAlpha0();
+            gradientBackground.SetRight();
+            gradientBackground.FadeIn().OnComplete(() =>
+            {
+                if (goSection)
+                    Destroy(goSection);
+            });
+            gradientBackground.MoveLeft(1.0f, 0.1f).SetDelay(1.0f).OnComplete(() =>
             {
                 StartCoroutine(InstantiateSection(1.4f));
             });
         }
 
-        public void ClearCard()
-        {
-            if (goSection)
-            {
-                Destroy(goSection);
-            }
-        }
-
+        // Section을 시작함
         public IEnumerator InstantiateSection(float delay = 0.0f)
         {
             yield return new WaitForSeconds(delay);
+            gradientBackground.FadeOut();
             if (selectedSection.Prefab)
             {
                 goSection = Instantiate(selectedSection.Prefab, SectionRoot.transform);
+                goSection.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+                goSection.AddComponent<SectionRoot>();
+                goSection.GetComponent<SectionRoot>().section = selectedSection;
             }
         }
     }
