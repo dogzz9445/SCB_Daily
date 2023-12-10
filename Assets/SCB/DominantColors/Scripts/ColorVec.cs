@@ -5,20 +5,22 @@ using KMeans;
 
 namespace SCB.DominantColors
 {
+    /// <summary>
+    /// ColorVec는 CIE 색공간으로 변환하여 색을 비교함
+    /// </summary>
     public class ColorVec : DataVec
     {
-        public ColorVec(Color color) : base(3)
+        public ColorVec(double L, double A, double B) : base(3)
         {
-            Components[0] = color.r;
-            Components[1] = color.g;
-            Components[2] = color.b;
+            Components[0] = L;
+            Components[1] = A;
+            Components[2] = B;
         }
 
-        public ColorVec(float r, float g, float b) : base(3)
+        public override double Distance(DataVec other)
         {
-            Components[0] = r;
-            Components[1] = g;
-            Components[2] = b;
+            ColorVec otherColor = (ColorVec)other;
+            return Mathf.Sqrt(Mathf.Pow((float)(Components[0] - otherColor.Components[0]), 2) + Mathf.Pow((float)(Components[1] - otherColor.Components[1]), 2) + Mathf.Pow((float)(Components[2] - otherColor.Components[2]), 2));
         }
     }
 }
