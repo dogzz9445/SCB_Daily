@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using System.Collections;
 
 
 #if UNITY_EDITOR
@@ -336,7 +336,7 @@ namespace SCB.CardSwipes
                 }
  
                 section.ImageColor = new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , 0xff);
-                Debug.Log($"Section {section.name} Average Color: {section.ImageColor}");
+                section.ImageColor = SCB.DominantColors.DominantColor.GetDominantColors(texture).First();
             }
             Debug.Log("Done.. Set All Sections Average Image");
         }

@@ -17,7 +17,7 @@ namespace SCB.DominantColors
 {
     public class DominantColor
     {
-        public static Color[] GetDominantColorS(Texture2D texture)
+        public static Color[] GetDominantColors(Texture2D texture)
         {
             Color[] pixels = texture.GetPixels();
             List<DataVec> points = new List<DataVec>();
