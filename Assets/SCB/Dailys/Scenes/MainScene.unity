@@ -1720,37 +1720,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ebdffcab6b903e4782cb7068e3b42dc, type: 3}
---- !u!1 &357038060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 357038061}
-  m_Layer: 0
-  m_Name: Tarots
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &357038061
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357038060}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 426609324}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &393406300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1883,7 +1852,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 871193235}
-  - {fileID: 357038061}
   - {fileID: 236432085}
   - {fileID: 183340387}
   - {fileID: 951492464}
@@ -3064,6 +3032,18 @@ PrefabInstance:
     - target: {fileID: 681278802084168050, guid: 67f1b27e819d5cd478d1585848f09891, type: 3}
       propertyPath: m_Name
       value: Blur
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015183436878476066, guid: 67f1b27e819d5cd478d1585848f09891, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015183436878476066, guid: 67f1b27e819d5cd478d1585848f09891, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015183436878476066, guid: 67f1b27e819d5cd478d1585848f09891, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4842350638606081496, guid: 67f1b27e819d5cd478d1585848f09891, type: 3}
       propertyPath: m_Pivot.x

@@ -34,6 +34,17 @@ namespace SCB.CardSwipes
         public Image cardImage;
         public Image cardImageShadow;
 
+#region AspectRatioFitter
+        private AspectRatioFitter aspectRatioFitter = null;
+        protected AspectRatioFitter AspectRatioFitter
+        {
+            get
+            {
+                return aspectRatioFitter ??= GetComponent<AspectRatioFitter>();;
+            }
+        }
+#endregion
+
         public Section section;
 
         public RectTransform rect;
@@ -96,12 +107,6 @@ namespace SCB.CardSwipes
         {
         }
 
-        public void SetSection()
-        {
-            cardImage.sprite = section.Image;
-            cardImage.color = Color.white;
-        }
-
         private void Update()
         {
             if (isMovingToCenter)
@@ -141,8 +146,16 @@ namespace SCB.CardSwipes
 
             if (section != null)
             {
-                GetComponent<AspectRatioFitter>().aspectRatio = section.Image.textureRect.width / section.Image.textureRect.height;
-                cardImage.sprite = section.Image;
+                if (section.Image != null)
+                {
+                    AspectRatioFitter.aspectRatio = section.Image.textureRect.width / section.Image.textureRect.height;
+                    cardImage.sprite = section.Image;
+                }
+                else
+                {
+                    AspectRatioFitter.aspectRatio = 0.64f;
+                    cardImage.sprite = null;
+                }
                 cardImage.color = Color.white;
                 if (text != null)
                 {

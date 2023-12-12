@@ -160,12 +160,6 @@ namespace SCB.CardSwipes
 
         void Update()
         {
-            // Refresh Debugging Settings
-            // foreach (var card in Cards)
-            // {
-            //     card.MaxWidth = CardWidth;
-            //     card.IsWireFrame = IsWireFrame;
-            // }
             degreeCard = 360f / Cards.Count;
             float degreeClockwise = -transform.localEulerAngles.z;
             degreeTop = degreeClockwise < 0 ? degreeClockwise + 360 : degreeClockwise;
