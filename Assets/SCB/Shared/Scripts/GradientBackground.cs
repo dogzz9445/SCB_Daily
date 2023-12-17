@@ -45,6 +45,7 @@ namespace SCB.Shared.UI
             LeftColor = new Color(left.r, left.g, left.b, 1.0f);
             RightColor = new Color(right.r, right.g, right.b, 1.0f);;
             Left.GetComponent<UnityEngine.UI.Image>().color = LeftColor;
+            Center.GetComponent<UnityEngine.UI.Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             Right.GetComponent<UnityEngine.UI.Image>().color = RightColor;
             Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color", LeftColor);
             Center.GetComponent<UnityEngine.UI.Image>().material.SetColor("_Color2", RightColor);

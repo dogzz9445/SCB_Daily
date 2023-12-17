@@ -4,11 +4,11 @@ namespace SCB.ScreenSwipes
 {
     public class ScreenContent : MonoBehaviour, IScreen
     {
-        public void OnScreenEntered()
+        public virtual void OnScreenEntered()
         {
         }
 
-        public void OnScreenExited()
+        public virtual void OnScreenExited()
         {
         }
     }
