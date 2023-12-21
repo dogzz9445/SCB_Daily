@@ -332,6 +332,9 @@ namespace SCB.CardSwipes
                 section.ImageColor = new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , 0xff);
                 section.ImageColor = SCB.DominantColors.DominantColor.GetDominantColors(texture).First();
             }
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            
             Debug.Log("Done.. Set All Sections Average Image");
         }
 #endif

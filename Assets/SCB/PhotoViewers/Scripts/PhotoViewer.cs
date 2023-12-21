@@ -46,7 +46,8 @@ namespace SCB.PhotoViewers
             else if (GUILayout.Button("Add Photo"))
             {
                 var photo = CreateInstance<Photo>();
-                AssetDatabase.CreateAsset(photo, $"{photoViewer.SavedPath}/New Photo.asset");
+                var newPhotoName = AssetDatabase.GenerateUniqueAssetPath($"{photoViewer.SavedPath}/New Photo.asset");
+                AssetDatabase.CreateAsset(photo, newPhotoName);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 EditorUtility.FocusProjectWindow();
@@ -55,10 +56,11 @@ namespace SCB.PhotoViewers
             else if (GUILayout.Button("Remove Photo"))
             {
                 var photo = photoViewer.photos[photoViewer.photos.Count - 1];
-                photoViewer.photos.Remove(photo);
-                AssetDatabase.RemoveObjectFromAsset(photo);
+                var toDeleteAsset = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(photo));
+                AssetDatabase.DeleteAsset(toDeleteAsset);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+                photoViewer.photos.Remove(photo);
                 EditorUtility.FocusProjectWindow();
             }
         }
@@ -85,7 +87,7 @@ namespace SCB.PhotoViewers
         [HideInInspector]
         public string SavedPath = "Assets/SCB/PhotoViewers/Photos";
 
-        public List<Photo> photos = new List<Photo>();
+        public List<Photo> photos;
 
         private void Start()
         {
