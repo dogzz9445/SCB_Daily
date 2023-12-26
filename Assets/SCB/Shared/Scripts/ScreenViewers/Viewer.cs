@@ -132,9 +132,6 @@ namespace SCB.Shared.Viewers
 
         public void OnEndDragLinear(PointerEventData eventData)
         {
-            // Drag를 움직인 방향을 확인
-            var direction = transform.localPosition.x - _initialPosition.x > 0 ? -1 : 1;
-
             if (transform.localPosition.x < -Screen.width * (views.Count - 1) / 2)
             {
                 transform.DOLocalMoveX(-Screen.width * (views.Count - 1) / 2, 0.5f);
