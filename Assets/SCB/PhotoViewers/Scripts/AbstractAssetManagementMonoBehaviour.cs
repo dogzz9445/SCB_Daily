@@ -60,7 +60,7 @@ namespace SCB.Shared.Components
         public virtual string BasePath { get; set; } = "Assets/SCB";
         [SerializeField]
         public virtual string AssetName { get; set; } = "New Asset";
-        public List<T> Assets = new List<T>();
+        public List<T> Assets;
         public void Add()
         {
             #if UNITY_EDITOR
