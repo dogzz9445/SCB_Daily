@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -58,7 +56,9 @@ namespace SCB.Shared.Components
 
     public abstract class AbstractAssetManagementMonoBehaviour<T> : MonoBehaviour, IAssetManagementMonoBehaviour where T : ScriptableObject
     {
+        [SerializeField]
         public virtual string BasePath { get; set; } = "Assets/SCB";
+        [SerializeField]
         public virtual string AssetName { get; set; } = "New Asset";
         public List<T> Assets;
         public void Add()
@@ -76,14 +76,14 @@ namespace SCB.Shared.Components
         public void Remove()
         {
             #if UNITY_EDITOR
-                if (Assets.Count == 0)
-                    return;
-                var asset = Assets[^1];
-                // Remove asset from Unity asset database and list
-                Assets.Remove(asset);
-                AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(asset));
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
+            if (Assets.Count == 0)
+                return;
+            var asset = Assets[^1];
+            // Remove asset from Unity asset database and list
+            Assets.Remove(asset);
+            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(asset));
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
             #endif
         }
     }
