@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 using KMeans;
 using SCB.ColorSpaces;
@@ -12,6 +11,11 @@ using SCB.ColorSpaces;
 // KMeans 클러스터링을 사용하여 색을 분류함
 // https://en.wikipedia.org/wiki/K-means_clustering
 // KMeans 계산 시 Distance 계산을 위해 CIE76 공식을 사용함
+
+// 참고: https://github.com/kubamaruszczyk1604/KMeansCSharp
+
+// 확인해야되는 사항:
+// - Texture2D Asset 의 Writable/Readable 을 체크해야함
 
 namespace SCB.DominantColors
 {

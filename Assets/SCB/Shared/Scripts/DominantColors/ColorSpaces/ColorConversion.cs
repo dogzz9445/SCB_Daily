@@ -1,6 +1,5 @@
 // Reference from https://patrickwu.space/2016/06/12/csharp-color/#rgb2lab
 using System;
-using UnityEngine;
 
 namespace SCB.ColorSpaces
 {
@@ -47,7 +46,7 @@ namespace SCB.ColorSpaces
         /// </summary>
         private static double Fxyz(double t)
         {
-            return ((t > 0.008856) ? Math.Pow(t, (1.0 / 3.0)) : (7.787 * t + 16.0 / 116.0));
+            return t > 0.008856 ? Math.Pow(t, 1.0 / 3.0) : 7.787 * t + 16.0 / 116.0;
         }
 
         /// <summary>

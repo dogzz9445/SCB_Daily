@@ -6,7 +6,7 @@ using KMeans;
 namespace SCB.DominantColors
 {
     /// <summary>
-    /// ColorVec는 CIE 색공간으로 변환하여 색을 비교함
+    /// ColorVec은 CIE 색공간으로 변환하여 색을 비교함
     /// </summary>
     public class ColorVec : DataVec
     {
