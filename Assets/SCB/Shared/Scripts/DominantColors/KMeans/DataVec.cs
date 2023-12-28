@@ -59,7 +59,7 @@ namespace KMeans
                 diff[i] = other.Components[i] - Components[i];
             }
 
-            return CalculateMagintude(diff);
+            return CalculateMagnitude(diff);
         }
         /// <summary>
         /// Print data point. For Debug.
@@ -85,10 +85,10 @@ namespace KMeans
         }
 
         /// <summary>
-        /// Obtain string representation of component values, separated by spaces and alligned.
+        /// Obtain string representation of component values, separated by spaces and aligned.
         /// </summary>
         /// <returns></returns>
-        public string ToStringFormated()
+        public string ToStringFormatted()
         {
             string str = "";
             const int digits = 25;
@@ -101,7 +101,7 @@ namespace KMeans
         }
 
 
-        protected double CalculateMagintude(double[] data)
+        protected double CalculateMagnitude(double[] data)
         {
             double sumSquared = 0;
 

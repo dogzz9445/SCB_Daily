@@ -10,15 +10,15 @@ namespace KMeans
     public class Cluster
     {
 
-        static List<int> s_OccupuedCentroidPositions = new List<int>(); // This is to keep track of which centroid positions are 
+        static List<int> s_OccupiedCentroidPositions = new List<int>(); // This is to keep track of which centroid positions are 
                                                                         // already occupied during random placement
 
         /// <summary>
-        /// Clear chaced centroid indices
+        /// Clear chased centroid indices
         /// </summary>
         public static void ResetCache()
         {
-            s_OccupuedCentroidPositions.Clear();
+            s_OccupiedCentroidPositions.Clear();
         }
         private DataVec m_LastCentroid;
 
@@ -40,7 +40,7 @@ namespace KMeans
         }
 
         /// <summary>
-        /// Clears references to datapoints used for centroid recalculation
+        /// Clears references to data points used for centroid recalculation
         /// </summary>
         public void ClearData()
         {
@@ -48,7 +48,7 @@ namespace KMeans
         }
 
         /// <summary>
-        /// Places centrid at the position of a point randomly selected from the data.  
+        /// Places centroid at the position of a point randomly selected from the data.  
         /// </summary>
         /// <param name="allData"></param>
         public void Initialize(DataVec [] allData)
@@ -66,10 +66,10 @@ namespace KMeans
 
                 index = rnd.Next(allData.Length);
 
-            } while (s_OccupuedCentroidPositions.Contains(index));
+            } while (s_OccupiedCentroidPositions.Contains(index));
 
             Centroid = DataVec.DeepCopy(allData[index]);
-            s_OccupuedCentroidPositions.Add(index);
+            s_OccupiedCentroidPositions.Add(index);
             m_LastCentroid = DataVec.DeepCopy(Centroid);
 
         }

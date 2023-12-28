@@ -3,7 +3,7 @@ using System;
 
 namespace KMeans
 {
-    public enum KMSState { OK = 0, PointsArrayNull = 1, DataPointsArayEmpty = 2, MoreCategoriesThanPoints = 3,
+    public enum KMSState { OK = 0, PointsArrayNull = 1, DataPointsArrayEmpty = 2, MoreCategoriesThanPoints = 3,
                            NullEntryInDataPoints = 4,  DimensionMismatch = 5 }
 
     public class KMeansClustering
@@ -15,7 +15,7 @@ namespace KMeans
         private Cluster[] m_Clusters;
 
         /// <summary>
-        /// Create instance of KMeansClustering clasifier.
+        /// Create instance of KMeansClustering classifier.
         /// </summary>
         /// <param name="points">All data points</param>
         /// <param name="k">Number of bins</param>
@@ -56,7 +56,7 @@ namespace KMeans
                 {
                     m_Clusters[iCluster].ClearData();
                 }
-                //reasing points in clusters
+                //erasing points in clusters
                 for(int iPoint = 0; iPoint < p_DataPoints.Length; ++iPoint)
                 {
                     double dist = double.PositiveInfinity;
@@ -73,7 +73,7 @@ namespace KMeans
                     m_Clusters[cluster].Points.Add(p_DataPoints[iPoint]);
 
                 }
-                // recalculate centriods
+                // recalculate centroids
                 double distChanged = 0;
                 for (int iCluster = 0; iCluster < m_Clusters.Length; ++iCluster)
                 {
@@ -94,7 +94,7 @@ namespace KMeans
             Console.WriteLine("Centroids" + new string(' ', 50) + "Members");
             for (int i = 0; i < m_Clusters.Length; ++i)
             {
-                string ptTex = m_Clusters[i].Centroid.ToStringFormated();
+                string ptTex = m_Clusters[i].Centroid.ToStringFormatted();
                 int diff = 60 - ptTex.Length;
                 if (diff < 1) diff = 1;
                 ptTex += new string(' ', diff);
@@ -105,7 +105,7 @@ namespace KMeans
         private KMSState CheckData(DataVec[] points, int k)
         {
             if (points == null) return KMSState.PointsArrayNull;
-            if (points.Length < 1) return KMSState.DataPointsArayEmpty;
+            if (points.Length < 1) return KMSState.DataPointsArrayEmpty;
             if (points.Length < k) return KMSState.MoreCategoriesThanPoints;
             if (points[0] == null) return KMSState.NullEntryInDataPoints;
             int dimensions = points[0].Components.Length;
