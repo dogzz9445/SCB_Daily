@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 
 namespace KMeans
@@ -26,7 +27,6 @@ namespace KMeans
             {
                 throw new Exception("Data check failed. Reason: " + state.ToString());
             }
-            Cluster.ResetCache();
 
             m_K = k;
             p_DataPoints = points;
@@ -79,7 +79,7 @@ namespace KMeans
                 {
                     distChanged += m_Clusters[iCluster].RecalculateCentroid();
                 }
-                Console.WriteLine("Mean error = " + distChanged);
+                Debug.Log("Mean error = " + distChanged);
                 if (distChanged/m_Clusters.Length < maxDiv)
                     break;
             }
@@ -91,14 +91,14 @@ namespace KMeans
         /// </summary>
         public void PrintClusters()
         {
-            Console.WriteLine("Centroids" + new string(' ', 50) + "Members");
+            Debug.Log("Centroids" + new string(' ', 50) + "Members");
             for (int i = 0; i < m_Clusters.Length; ++i)
             {
                 string ptTex = m_Clusters[i].Centroid.ToStringFormatted();
                 int diff = 60 - ptTex.Length;
                 if (diff < 1) diff = 1;
                 ptTex += new string(' ', diff);
-                Console.WriteLine(ptTex + " " + m_Clusters[i].Points.Count.ToString());
+                Debug.Log(ptTex + " " + m_Clusters[i].Points.Count.ToString());
             }
         }
 

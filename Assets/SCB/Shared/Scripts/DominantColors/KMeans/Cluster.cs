@@ -10,16 +10,9 @@ namespace KMeans
     public class Cluster
     {
 
-        static List<int> s_OccupiedCentroidPositions = new List<int>(); // This is to keep track of which centroid positions are 
+        List<int> s_OccupiedCentroidPositions = new List<int>(); // This is to keep track of which centroid positions are 
                                                                         // already occupied during random placement
 
-        /// <summary>
-        /// Clear chased centroid indices
-        /// </summary>
-        public static void ResetCache()
-        {
-            s_OccupiedCentroidPositions.Clear();
-        }
         private DataVec m_LastCentroid;
 
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using UnityEngine;
 
 namespace KMeans
 {
@@ -16,7 +18,7 @@ namespace KMeans
 
         /// <summary>
         /// Performs a deep copy of DataVec class. 
-        /// </summary>
+        /// /// </summary>
         /// <param name="source">DataVec object to copy</param>
         /// <returns></returns>
         static public DataVec DeepCopy(DataVec source)
@@ -66,7 +68,7 @@ namespace KMeans
         /// </summary>
         public void Print()
         {
-            Console.WriteLine("E: " + this.ToString());
+            Debug.Log("E: " + this.ToString());
         }
 
         /// <summary>
@@ -99,7 +101,6 @@ namespace KMeans
             }
             return str.Substring(0, str.Length - 1);
         }
-
 
         protected double CalculateMagnitude(double[] data)
         {
