@@ -1,8 +1,12 @@
 using UnityEngine;
 
-public class IsolationTest : MonoBehaviour
+namespace SCB.Cors
 {
-    private void Start()
+
+    public class IsolationTest : MonoBehaviour
     {
+        private void Start()
+        {
+        }
     }
 }

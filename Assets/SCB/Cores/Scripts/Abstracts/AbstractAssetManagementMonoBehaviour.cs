@@ -60,12 +60,15 @@ namespace SCB.Shared.Components
         public virtual string BasePath { get; set; } = "Assets/SCB";
         [SerializeField]
         public virtual string AssetName { get; set; } = "New Asset";
+        [SerializeField]
+        public virtual string AssetExtension { get; set; } = "asset";
+
         public List<T> Assets;
-        public void Add()
+        public virtual void Add()
         {
             #if UNITY_EDITOR
             var asset = Editor.CreateInstance(typeof(T)) as T;
-            var newPhotoName = AssetDatabase.GenerateUniqueAssetPath($"{BasePath}/{AssetName}.asset");
+            var newPhotoName = AssetDatabase.GenerateUniqueAssetPath($"{BasePath}/{AssetName}.{AssetExtension}");
             AssetDatabase.CreateAsset(asset, newPhotoName);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -73,7 +76,7 @@ namespace SCB.Shared.Components
             #endif
         }
 
-        public void Remove()
+        public virtual void Remove()
         {
             #if UNITY_EDITOR
             if (Assets.Count == 0)
